@@ -1,2 +1,2 @@
-# poc-see-comunication
-POC generated to test comunication between react and java via SEE, to manage notification in real time.
+# poc-sse-comunication
+POC generated to test comunication between react and java via SSE, to manage notification in real time.
