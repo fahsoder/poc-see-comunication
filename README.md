@@ -1,70 +1,50 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Comunicação entre Frontend e Backend com Server-Sent Events (SSE)
+## Descrição
+Este projeto demonstra como implementar a comunicação em tempo real entre o frontend (React) e o backend (Spring Boot) usando Server-Sent Events (SSE). O SSE é uma tecnologia baseada em HTTP que permite ao servidor enviar eventos em tempo real para o cliente, sem que o cliente precise fazer novas requisições.
 
-## Available Scripts
+## Visão Geral
+#### Backend (Spring Boot)
+No lado do backend, o Spring Boot fornece suporte para SSE através do `SseEmitter`. O servidor mantém uma conexão aberta com o cliente e envia dados em tempo real sempre que necessário. Isso é ideal para aplicações que precisam de atualizações contínuas, como notificações, feeds de dados ou relatórios em progresso.
 
-In the project directory, you can run:
+#### Frontend (React)
+No frontend, o React usa a API EventSource para se conectar ao endpoint SSE no servidor. A cada evento enviado pelo servidor, o cliente processa a mensagem e pode atualizar a interface do usuário conforme necessário.
 
-### `npm start`
+## Instalando e Executando o Projeto
+#### Backend: Iniciar o servidor Spring Boot:
+Para instalar as dependências e rodar o backend, use o Maven. No diretório do projeto `api`, execute:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```bash
+    mvn clean install
+    mvn spring-boot:run
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+#### Backend: Iniciar o servidor React:
+Para instalar as dependências e rodar o frontend, use o npm. No diretório do projeto `app`, execute:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+    npm install
+    npm run start
+```
 
-### `npm run build`
+## Como Funciona a Comunicação?
+O backend (Spring Boot) mantém uma conexão aberta com o cliente usando Server-Sent Events (SSE).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+O frontend (React) se conecta a esse endpoint através da API EventSource e recebe atualizações em tempo real.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Sempre que o backend gera um novo evento (ex: conclusão de uma etapa do relatório), ele envia esses eventos para o cliente, que pode atualizá-los dinamicamente na interface do usuário.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+A conexão é mantida aberta enquanto o processo de geração do relatório ou outra tarefa continua. Se necessário, o servidor pode enviar eventos a cada intervalo de tempo ou em resposta a eventos específicos.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Benefícios do SSE
+Simplicidade: SSE é uma solução simples para comunicação unidirecional do servidor para o cliente.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Eficiência: Não há necessidade de polling constante. O servidor envia os eventos conforme necessário.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Desempenho: SSE usa HTTP padrão e não requer protocolos especiais como WebSockets, o que facilita a integração em servidores e firewalls.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Conclusão
+A comunicação via SSE é uma excelente escolha para aplicações que precisam de atualizações em tempo real do servidor para o cliente sem a sobrecarga de requisições contínuas. Este exemplo básico demonstra como configurar o SSE no Spring Boot e no React para criar uma comunicação eficiente e em tempo real.
