@@ -15,14 +15,7 @@ public class ReportController {
 
     @Autowired
     private ReportService reportService;
-//
-//    // Endpoint para iniciar a geração de relatório
-//    @PostMapping
-//    public String generateReport(@RequestBody ReportRequest request) {
-//        String reportId = reportService.initiateReportGeneration(request, );
-//        log.info("Solicitacao iniciada!");
-//        return "Relatório iniciado com ID: " + reportId;
-//    }
+
 
     @CrossOrigin(origins = "http://localhost:3000")
     // Endpoint para enviar eventos SSE
